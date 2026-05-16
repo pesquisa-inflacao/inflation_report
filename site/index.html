@@ -174,16 +174,40 @@
     downloadBtn.addEventListener("click", function () {
         trackEvent("downloaded");
 
+        // Create a temporary container with the full report styled for PDF
+        var pdfContainer = document.createElement("div");
+        pdfContainer.innerHTML = reportHTML;
+        // Override body background to white and remove max-width constraints for PDF
+        var pdfBody = pdfContainer.querySelector("body");
+        if (pdfBody) {
+            pdfContainer.innerHTML = pdfBody.innerHTML;
+        }
+        // Force all max-width containers to full width and white background
+        var allDivs = pdfContainer.querySelectorAll("div");
+        allDivs.forEach(function(div) {
+            if (div.style.maxWidth) {
+                div.style.maxWidth = "100%";
+                div.style.margin = "0";
+            }
+        });
+        pdfContainer.style.backgroundColor = "#ffffff";
+        pdfContainer.style.width = "700px";
+        pdfContainer.style.position = "absolute";
+        pdfContainer.style.left = "-9999px";
+        document.body.appendChild(pdfContainer);
+
         var opt = {
-            margin: 0,
+            margin: [5, 5, 5, 5],
             filename: "relatorio-inflacao-" + REPORT_MONTH + ".pdf",
             image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
+            html2canvas: { scale: 2, useCORS: true, width: 700, windowWidth: 700 },
             jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-            pagebreak: { mode: ["css", "legacy"] }
+            pagebreak: { mode: ["avoid-all"] }
         };
 
-        html2pdf().set(opt).from(reportContainer).save();
+        html2pdf().set(opt).from(pdfContainer).save().then(function() {
+            document.body.removeChild(pdfContainer);
+        });
     });
 
     // ── Heartbeat tracking ─────────────────────────────────────────
