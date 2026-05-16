@@ -93,10 +93,8 @@
 <div id="report-container"></div>
 
 <div id="download-bar">
-    <button id="download-btn">Baixar relatório em PDF</button>
+    <button id="download-btn">Baixar Relatório</button>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.2/html2pdf.bundle.min.js"></script>
 
 <script>
 (function () {
@@ -150,7 +148,6 @@
             loadingContainer.style.display = "none";
             reportContainer.innerHTML = content;
             reportContainer.style.display = "block";
-            downloadBar.style.display = "block";
 
             // Add bottom padding so download bar doesn't cover content
             document.body.style.paddingBottom = "70px";
@@ -170,45 +167,31 @@
             errorContainer.style.display = "block";
         });
 
-    // ── Download button (PDF via html2pdf.js) ───────────────────────
+    // ── Download button (HTML file) ─────────────────────────────────
     downloadBtn.addEventListener("click", function () {
         trackEvent("downloaded");
 
-        // Create a temporary container with the full report styled for PDF
-        var pdfContainer = document.createElement("div");
-        pdfContainer.innerHTML = reportHTML;
-        // Override body background to white and remove max-width constraints for PDF
-        var pdfBody = pdfContainer.querySelector("body");
-        if (pdfBody) {
-            pdfContainer.innerHTML = pdfBody.innerHTML;
-        }
-        // Force all max-width containers to full width and white background
-        var allDivs = pdfContainer.querySelectorAll("div");
-        allDivs.forEach(function(div) {
-            if (div.style.maxWidth) {
-                div.style.maxWidth = "100%";
-                div.style.margin = "0";
-            }
-        });
-        pdfContainer.style.backgroundColor = "#ffffff";
-        pdfContainer.style.width = "700px";
-        pdfContainer.style.position = "absolute";
-        pdfContainer.style.left = "-9999px";
-        document.body.appendChild(pdfContainer);
-
-        var opt = {
-            margin: [5, 5, 5, 5],
-            filename: "relatorio-inflacao-" + REPORT_MONTH + ".pdf",
-            image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true, width: 700, windowWidth: 700 },
-            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-            pagebreak: { mode: ["avoid-all"] }
-        };
-
-        html2pdf().set(opt).from(pdfContainer).save().then(function() {
-            document.body.removeChild(pdfContainer);
-        });
+        var blob = new Blob([reportHTML], { type: "text/html;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "relatorio-inflacao-" + REPORT_MONTH + ".html";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     });
+
+    // ── Show download bar only after scrolling to bottom ──────────
+    function checkScrollBottom() {
+        var scrollPosition = window.innerHeight + window.scrollY;
+        var threshold = document.body.offsetHeight - 100;
+        if (scrollPosition >= threshold) {
+            downloadBar.style.display = "block";
+            window.removeEventListener("scroll", checkScrollBottom);
+        }
+    }
+    window.addEventListener("scroll", checkScrollBottom);
 
     // ── Heartbeat tracking ─────────────────────────────────────────
     var secondsOnPage = 0;
