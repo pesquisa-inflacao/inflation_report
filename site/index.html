@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Inflação — Consórcio Servopa</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        #error-container {
+            display: none;
+            max-width: 500px;
+            margin: 80px auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        #error-container h1 {
+            color: #1a2b3c;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        #error-container p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        #loading-container {
+            display: none;
+            max-width: 500px;
+            margin: 80px auto;
+            text-align: center;
+            color: #888;
+            font-size: 16px;
+        }
+
+        #report-container {
+            display: none;
+        }
+
+        #download-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1a5276;
+            padding: 12px 20px;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.15);
+        }
+
+        #download-bar button {
+            background: #ffffff;
+            color: #1a5276;
+            border: none;
+            padding: 10px 28px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #download-bar button:hover {
+            background: #e8e8e8;
+        }
+    </style>
+</head>
+<body>
+
+<div id="error-container">
+    <h1>Link inválido</h1>
+    <p>Por favor, use o link que foi enviado para o seu email. Se você acredita que isso é um erro, entre em contato com a equipe de pesquisa.</p>
+</div>
+
+<div id="loading-container">
+    <p>Carregando relatório...</p>
+</div>
+
+<div id="report-container"></div>
+
+<div id="download-bar">
+    <button id="download-btn">Baixar relatório em HTML</button>
+</div>
+
+<script>
+(function () {
+    // ── Configuration ──────────────────────────────────────────────
+    var SUPABASE_URL = "https://smawkkjarjcbqcaxpdoh.supabase.co";
+    var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtYXdra2phcmpjYnFjYXhwZG9oIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg4OTk2MDQsImV4cCI6MjA5NDQ3NTYwNH0.EjWanuWnHRc0JBM7AhRFjnspGj7V9M_u7B411RV3A28";
+
+    // ── Parse URL parameters ───────────────────────────────────────
+    var params = new URLSearchParams(window.location.search);
+    var TOKEN = params.get("token");
+    var REPORT_MONTH = params.get("report");
+
+    var errorContainer = document.getElementById("error-container");
+    var loadingContainer = document.getElementById("loading-container");
+    var reportContainer = document.getElementById("report-container");
+    var downloadBar = document.getElementById("download-bar");
+    var downloadBtn = document.getElementById("download-btn");
+
+    // ── Validate parameters ────────────────────────────────────────
+    if (!TOKEN || !REPORT_MONTH) {
+        errorContainer.style.display = "block";
+        return;
+    }
+
+    // Basic format check for report month (YYYY-MM)
+    if (!/^\d{4}-\d{2}$/.test(REPORT_MONTH)) {
+        errorContainer.style.display = "block";
+        return;
+    }
+
+    // ── Load report ────────────────────────────────────────────────
+    loadingContainer.style.display = "block";
+
+    var reportUrl = "reports/" + REPORT_MONTH + ".html";
+    var reportHTML = "";
+
+    fetch(reportUrl)
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error("Report not found");
+            }
+            return response.text();
+        })
+        .then(function (html) {
+            reportHTML = html;
+
+            // Extract the body content if it's a full HTML document
+            var bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+            var content = bodyMatch ? bodyMatch[1] : html;
+
+            loadingContainer.style.display = "none";
+            reportContainer.innerHTML = content;
+            reportContainer.style.display = "block";
+            downloadBar.style.display = "block";
+
+            // Add bottom padding so download bar doesn't cover content
+            document.body.style.paddingBottom = "70px";
+
+            // Track open event
+            trackEvent("opened");
+
+            // Start heartbeat
+            startHeartbeat();
+        })
+        .catch(function () {
+            loadingContainer.style.display = "none";
+            errorContainer.querySelector("h1").textContent = "Relatório não encontrado";
+            errorContainer.querySelector("p").textContent =
+                "O relatório para o mês " + REPORT_MONTH + " ainda não está disponível. " +
+                "Por favor, tente novamente mais tarde.";
+            errorContainer.style.display = "block";
+        });
+
+    // ── Download button ────────────────────────────────────────────
+    downloadBtn.addEventListener("click", function () {
+        trackEvent("downloaded");
+
+        var blob = new Blob([reportHTML], { type: "text/html;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "relatorio-inflacao-" + REPORT_MONTH + ".html";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+
+    // ── Heartbeat tracking ─────────────────────────────────────────
+    var secondsOnPage = 0;
+    var heartbeatInterval = null;
+    var countInterval = null;
+
+    function startHeartbeat() {
+        // Count seconds only when page is visible
+        countInterval = setInterval(function () {
+            if (document.visibilityState === "visible") {
+                secondsOnPage++;
+            }
+        }, 1000);
+
+        // Send heartbeat every 30 seconds
+        heartbeatInterval = setInterval(function () {
+            if (secondsOnPage > 0) {
+                trackEvent("heartbeat", secondsOnPage);
+            }
+        }, 30000);
+
+        // Send final heartbeat on page unload
+        document.addEventListener("visibilitychange", function () {
+            if (document.visibilityState === "hidden" && secondsOnPage > 0) {
+                trackEvent("heartbeat", secondsOnPage);
+            }
+        });
+    }
+
+    // ── Supabase tracking ──────────────────────────────────────────
+    function trackEvent(eventType, durationSeconds) {
+        var payload = {
+            token: TOKEN,
+            event_type: eventType,
+            report_month: REPORT_MONTH,
+            user_agent: navigator.userAgent
+        };
+
+        if (typeof durationSeconds === "number") {
+            payload.duration_seconds = durationSeconds;
+        }
+
+        // Use sendBeacon for reliability on page unload, fetch otherwise
+        var url = SUPABASE_URL + "/rest/v1/report_events";
+        var headers = {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+            "Prefer": "return=minimal"
+        };
+
+        if (eventType === "heartbeat" && document.visibilityState === "hidden" && navigator.sendBeacon) {
+            var blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
+            navigator.sendBeacon(url + "?apikey=" + SUPABASE_ANON_KEY, blob);
+        } else {
+            fetch(url, {
+                method: "POST",
+                headers: headers,
+                body: JSON.stringify(payload)
+            }).catch(function () {
+                // Silently fail — tracking should never break the user experience
+            });
+        }
+    }
+})();
+</script>
+
+</body>
+</html>

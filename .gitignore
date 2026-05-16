@@ -1,0 +1,11 @@
+# PII and secrets — never commit
+tokens/token_map.csv
+tokens/qualtrics_export.csv
+tracking/tracking_events.csv
+analysis/analysis_panel.csv
+.env
+
+# Node artifacts (used only for local xlsx parsing)
+node_modules/
+package.json
+package-lock.json

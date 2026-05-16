@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"C:\\\\Users\\\\otavi\\\\Dropbox\\\\jmp_inflation_rct\\\\inflation_report\\\\data\"\" 2>/dev/null; ls \"C:UsersotaviDropboxjmp_inflation_rctinflation_reportreports\"\")",
+      "mcp__ide__executeCode",
+      "Bash(python -c:*)",
+      "Bash(where:*)",
+      "Bash(node -e:*)",
+      "Bash(npx:*)",
+      "Bash(npm install:*)",
+      "Bash(npm init:*)",
+      "Bash(gh:*)"
+    ]
+  }
+}

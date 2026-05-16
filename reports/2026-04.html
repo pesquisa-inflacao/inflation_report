@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Mensal de Inflação — Abril 2026</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f0f2f5; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333333; line-height: 1.6;">
+
+<div style="max-width: 700px; margin: 0 auto; background-color: #ffffff; padding: 30px 25px;">
+
+    <!-- HEADER -->
+    <div style="text-align: center; border-bottom: 3px solid #1a5276; padding-bottom: 20px; margin-bottom: 25px;">
+        <h1 style="color: #1a2b3c; font-size: 26px; margin: 0 0 8px 0; font-weight: 700;">Relatório Mensal de Inflação — Abril 2026</h1>
+        <p style="color: #555; font-size: 16px; margin: 0 0 5px 0;">Preparado para participantes de consórcio Servopa</p>
+        <p style="color: #888; font-size: 14px; margin: 0;">Publicado em 15 de maio de 2026</p>
+    </div>
+
+    <!-- RESUMO EXECUTIVO -->
+    <div style="background-color: #f8f9fa; border-left: 4px solid #1a5276; padding: 15px 18px; border-radius: 4px; margin-bottom: 30px;">
+        <h2 style="color: #1a2b3c; font-size: 18px; margin: 0 0 10px 0;">Resumo Executivo</h2>
+        <p style="font-size: 15px; margin: 0; color: #555; line-height: 1.6;">
+            Em abril de 2026, o IPCA registrou variação mensal de 0,67%, desacelerando em relação aos 0,88% de março, mas a inflação acumulada em 12 meses subiu para 4,39%. Já o INCC acelerou com força, saltando de 0,54% em março para 1,00% em abril — a maior variação mensal desde julho de 2025 —, elevando o acumulado em 12 meses para 6,35%. Quem tem consórcio de imóveis enfrenta neste momento uma pressão inflacionária maior do que quem tem consórcio de veículos.
+        </p>
+    </div>
+
+    <!-- IPCA SECTION -->
+    <h2 style="color: #1a2b3c; font-size: 22px; border-bottom: 2px solid #e8e8e8; padding-bottom: 8px; margin-bottom: 15px;">IPCA — O que aconteceu?</h2>
+
+    <p style="font-size: 15px; color: #333; line-height: 1.7;">
+        O IPCA (índice oficial de preços ao consumidor) teve variação de <strong>0,67%</strong> em abril de 2026, abaixo dos <strong>0,88%</strong> registrados em março. Essa desaceleração mensal é um sinal positivo, mas o acumulado em 12 meses subiu de 4,14% para <strong>4,39%</strong>, indicando que a inflação ao consumidor, no cômputo geral, ainda está em trajetória de aceleração.
+    </p>
+
+    <p style="font-size: 15px; color: #333; line-height: 1.7;">
+        <strong>O que isso significa para seu consórcio de veículos, motos ou caminhões?</strong> O IPCA é o índice usado para reajustar as parcelas de consórcio de <em>bens móveis</em>. Quando o acumulado em 12 meses sobe, os reajustes anuais das parcelas tendem a ser maiores.
+    </p>
+
+    <!-- Installment example IPCA -->
+    <div style="background-color: #f8f9fa; border-left: 4px solid #e67e22; padding: 12px 15px; border-radius: 4px; margin: 15px 0 20px 0;">
+        <p style="font-size: 16px; margin: 0; color: #555; line-height: 1.5;">
+            &#129518; <strong>Exemplo prático:</strong> Se sua parcela atual é de R$&nbsp;1.000, um reajuste anual de 4,39% representaria um aumento de aproximadamente <strong>R$&nbsp;43,90 por mês</strong>.
+        </p>
+    </div>
+
+    <!-- IPCA Chart: last 12 monthly variations -->
+    <h3 style="color: #1a2b3c; font-size: 16px; margin-bottom: 10px;">Variação mensal do IPCA — Últimos 12 meses</h3>
+
+    <svg viewBox="0 0 600 250" style="width: 100%; height: auto; display: block; margin-bottom: 25px;" role="img" aria-label="Gráfico de barras mostrando a variação mensal do IPCA nos últimos 12 meses">
+        <!-- Background grid lines -->
+        <line x1="50" y1="30" x2="580" y2="30" stroke="#e8e8e8" stroke-width="1"/>
+        <line x1="50" y1="70" x2="580" y2="70" stroke="#e8e8e8" stroke-width="1"/>
+        <line x1="50" y1="110" x2="580" y2="110" stroke="#e8e8e8" stroke-width="1"/>
+        <line x1="50" y1="150" x2="580" y2="150" stroke="#e8e8e8" stroke-width="1"/>
+        <!-- Zero line at y=190 -->
+        <line x1="50" y1="190" x2="580" y2="190" stroke="#333" stroke-width="1"/>
+
+        <!-- Y-axis labels (scale: 0 at y=190, 1.0% at y=30; each 0.1% = 16px) -->
+        <text x="45" y="34" text-anchor="end" font-size="11" fill="#888">1,0%</text>
+        <text x="45" y="74" text-anchor="end" font-size="11" fill="#888">0,75%</text>
+        <text x="45" y="114" text-anchor="end" font-size="11" fill="#888">0,50%</text>
+        <text x="45" y="154" text-anchor="end" font-size="11" fill="#888">0,25%</text>
+        <text x="45" y="194" text-anchor="end" font-size="11" fill="#888">0%</text>
+        <text x="45" y="222" text-anchor="end" font-size="11" fill="#888">-0,25%</text>
+
+        <!-- Bars: 12 months, May 2025 to Apr 2026 -->
+        <!-- Bar width=35, gap=9, start at x=55 -->
+        <!-- Height = value * 160 (mapping 1.0% to 160px) -->
+
+        <!-- May 2025: 0.26% => h=41.6, y=190-41.6=148.4 -->
+        <rect x="55" y="148.4" width="35" height="41.6" fill="#1a5276" rx="2"/>
+        <text x="72.5" y="143" text-anchor="middle" font-size="10" fill="#333">0,26</text>
+        <text x="72.5" y="205" text-anchor="middle" font-size="10" fill="#888">Mai</text>
+
+        <!-- Jun 2025: 0.24% => h=38.4, y=151.6 -->
+        <rect x="99" y="151.6" width="35" height="38.4" fill="#1a5276" rx="2"/>
+        <text x="116.5" y="146" text-anchor="middle" font-size="10" fill="#333">0,24</text>
+        <text x="116.5" y="205" text-anchor="middle" font-size="10" fill="#888">Jun</text>
+
+        <!-- Jul 2025: 0.26% => h=41.6, y=148.4 -->
+        <rect x="143" y="148.4" width="35" height="41.6" fill="#1a5276" rx="2"/>
+        <text x="160.5" y="143" text-anchor="middle" font-size="10" fill="#333">0,26</text>
+        <text x="160.5" y="205" text-anchor="middle" font-size="10" fill="#888">Jul</text>
+
+        <!-- Aug 2025: -0.11% => h=17.6, y=190, bar goes DOWN -->
+        <rect x="187" y="190" width="35" height="17.6" fill="#2ecc71" rx="2"/>
+        <text x="204.5" y="218" text-anchor="middle" font-size="10" fill="#333">-0,11</text>
+        <text x="204.5" y="230" text-anchor="middle" font-size="10" fill="#888">Ago</text>
+
+        <!-- Sep 2025: 0.48% => h=76.8, y=113.2 -->
+        <rect x="231" y="113.2" width="35" height="76.8" fill="#1a5276" rx="2"/>
+        <text x="248.5" y="108" text-anchor="middle" font-size="10" fill="#333">0,48</text>
+        <text x="248.5" y="205" text-anchor="middle" font-size="10" fill="#888">Set</text>
+
+        <!-- Oct 2025: 0.09% => h=14.4, y=175.6 -->
+        <rect x="275" y="175.6" width="35" height="14.4" fill="#1a5276" rx="2"/>
+        <text x="292.5" y="170" text-anchor="middle" font-size="10" fill="#333">0,09</text>
+        <text x="292.5" y="205" text-anchor="middle" font-size="10" fill="#888">Out</text>
+
+        <!-- Nov 2025: 0.18% => h=28.8, y=161.2 -->
+        <rect x="319" y="161.2" width="35" height="28.8" fill="#1a5276" rx="2"/>
+        <text x="336.5" y="156" text-anchor="middle" font-size="10" fill="#333">0,18</text>
+        <text x="336.5" y="205" text-anchor="middle" font-size="10" fill="#888">Nov</text>
+
+        <!-- Dec 2025: 0.33% => h=52.8, y=137.2 -->
+        <rect x="363" y="137.2" width="35" height="52.8" fill="#1a5276" rx="2"/>
+        <text x="380.5" y="132" text-anchor="middle" font-size="10" fill="#333">0,33</text>
+        <text x="380.5" y="205" text-anchor="middle" font-size="10" fill="#888">Dez</text>
+
+        <!-- Jan 2026: 0.33% => h=52.8, y=137.2 -->
+        <rect x="407" y="137.2" width="35" height="52.8" fill="#1a5276" rx="2"/>
+        <text x="424.5" y="132" text-anchor="middle" font-size="10" fill="#333">0,33</text>
+        <text x="424.5" y="205" text-anchor="middle" font-size="10" fill="#888">Jan</text>
+
+        <!-- Feb 2026: 0.70% => h=112, y=78 -->
+        <rect x="451" y="78" width="35" height="112" fill="#e67e22" rx="2"/>
+        <text x="468.5" y="73" text-anchor="middle" font-size="10" fill="#333">0,70</text>
+        <text x="468.5" y="205" text-anchor="middle" font-size="10" fill="#888">Fev</text>
+
+        <!-- Mar 2026: 0.88% => h=140.8, y=49.2 -->
+        <rect x="495" y="49.2" width="35" height="140.8" fill="#e67e22" rx="2"/>
+        <text x="512.5" y="44" text-anchor="middle" font-size="10" fill="#333">0,88</text>
+        <text x="512.5" y="205" text-anchor="middle" font-size="10" fill="#888">Mar</text>
+
+        <!-- Apr 2026: 0.67% => h=107.2, y=82.8 -->
+        <rect x="539" y="82.8" width="35" height="107.2" fill="#e67e22" rx="2"/>
+        <text x="556.5" y="77" text-anchor="middle" font-size="10" fill="#333">0,67</text>
+        <text x="556.5" y="205" text-anchor="middle" font-size="10" fill="#888">Abr</text>
+    </svg>
+
+    <!-- INCC SECTION -->
+    <h2 style="color: #1a2b3c; font-size: 22px; border-bottom: 2px solid #e8e8e8; padding-bottom: 8px; margin-bottom: 15px;">INCC — O que aconteceu?</h2>
+
+    <p style="font-size: 15px; color: #333; line-height: 1.7;">
+        O INCC (índice de custo da construção) registrou variação de <strong>1,00%</strong> em abril, uma aceleração significativa em relação aos <strong>0,54%</strong> de março. O acumulado em 12 meses subiu de 5,84% para <strong>6,35%</strong>, reforçando uma tendência de alta nos custos da construção civil.
+    </p>
+
+    <p style="font-size: 15px; color: #333; line-height: 1.7;">
+        <strong>O que isso significa para seu consórcio de imóveis?</strong> O INCC é o índice usado para reajustar as parcelas de consórcio de <em>bens imóveis</em> — casas, apartamentos, terrenos e reformas. O aumento na variação mensal e no acumulado de 12 meses sinaliza reajustes mais expressivos nas parcelas.
+    </p>
+
+    <!-- Installment example INCC -->
+    <div style="background-color: #f8f9fa; border-left: 4px solid #e67e22; padding: 12px 15px; border-radius: 4px; margin: 15px 0 20px 0;">
+        <p style="font-size: 16px; margin: 0; color: #555; line-height: 1.5;">
+            &#129518; <strong>Exemplo prático:</strong> Se sua parcela atual é de R$&nbsp;1.000, um reajuste anual de 6,35% representaria um aumento de aproximadamente <strong>R$&nbsp;63,50 por mês</strong>.
+        </p>
+    </div>
+
+    <!-- INCC Chart: last 12 monthly variations -->
+    <h3 style="color: #1a2b3c; font-size: 16px; margin-bottom: 10px;">Variação mensal do INCC — Últimos 12 meses</h3>
+
+    <svg viewBox="0 0 600 230" style="width: 100%; height: auto; display: block; margin-bottom: 25px;" role="img" aria-label="Gráfico de barras mostrando a variação mensal do INCC nos últimos 12 meses">
+        <!-- Background grid lines -->
+        <line x1="50" y1="30" x2="580" y2="30" stroke="#e8e8e8" stroke-width="1"/>
+        <line x1="50" y1="70" x2="580" y2="70" stroke="#e8e8e8" stroke-width="1"/>
+        <line x1="50" y1="110" x2="580" y2="110" stroke="#e8e8e8" stroke-width="1"/>
+        <line x1="50" y1="150" x2="580" y2="150" stroke="#e8e8e8" stroke-width="1"/>
+        <!-- Zero line at y=190 -->
+        <line x1="50" y1="190" x2="580" y2="190" stroke="#333" stroke-width="1"/>
+
+        <!-- Y-axis labels (scale: 0 at y=190, 1.0% at y=30; each 0.1% = 16px) -->
+        <text x="45" y="34" text-anchor="end" font-size="11" fill="#888">1,0%</text>
+        <text x="45" y="74" text-anchor="end" font-size="11" fill="#888">0,75%</text>
+        <text x="45" y="114" text-anchor="end" font-size="11" fill="#888">0,50%</text>
+        <text x="45" y="154" text-anchor="end" font-size="11" fill="#888">0,25%</text>
+        <text x="45" y="194" text-anchor="end" font-size="11" fill="#888">0%</text>
+
+        <!-- Bars: 12 months, May 2025 to Apr 2026 -->
+
+        <!-- May 2025: 0.58% => h=92.8, y=97.2 -->
+        <rect x="55" y="97.2" width="35" height="92.8" fill="#1a5276" rx="2"/>
+        <text x="72.5" y="92" text-anchor="middle" font-size="10" fill="#333">0,58</text>
+        <text x="72.5" y="205" text-anchor="middle" font-size="10" fill="#888">Mai</text>
+
+        <!-- Jun 2025: 0.69% => h=110.4, y=79.6 -->
+        <rect x="99" y="79.6" width="35" height="110.4" fill="#1a5276" rx="2"/>
+        <text x="116.5" y="74" text-anchor="middle" font-size="10" fill="#333">0,69</text>
+        <text x="116.5" y="205" text-anchor="middle" font-size="10" fill="#888">Jun</text>
+
+        <!-- Jul 2025: 0.91% => h=145.6, y=44.4 -->
+        <rect x="143" y="44.4" width="35" height="145.6" fill="#e67e22" rx="2"/>
+        <text x="160.5" y="39" text-anchor="middle" font-size="10" fill="#333">0,91</text>
+        <text x="160.5" y="205" text-anchor="middle" font-size="10" fill="#888">Jul</text>
+
+        <!-- Aug 2025: 0.52% => h=83.2, y=106.8 -->
+        <rect x="187" y="106.8" width="35" height="83.2" fill="#1a5276" rx="2"/>
+        <text x="204.5" y="101" text-anchor="middle" font-size="10" fill="#333">0,52</text>
+        <text x="204.5" y="205" text-anchor="middle" font-size="10" fill="#888">Ago</text>
+
+        <!-- Sep 2025: 0.17% => h=27.2, y=162.8 -->
+        <rect x="231" y="162.8" width="35" height="27.2" fill="#2ecc71" rx="2"/>
+        <text x="248.5" y="157" text-anchor="middle" font-size="10" fill="#333">0,17</text>
+        <text x="248.5" y="205" text-anchor="middle" font-size="10" fill="#888">Set</text>
+
+        <!-- Oct 2025: 0.30% => h=48, y=142 -->
+        <rect x="275" y="142" width="35" height="48" fill="#1a5276" rx="2"/>
+        <text x="292.5" y="137" text-anchor="middle" font-size="10" fill="#333">0,30</text>
+        <text x="292.5" y="205" text-anchor="middle" font-size="10" fill="#888">Out</text>
+
+        <!-- Nov 2025: 0.27% => h=43.2, y=146.8 -->
+        <rect x="319" y="146.8" width="35" height="43.2" fill="#1a5276" rx="2"/>
+        <text x="336.5" y="141" text-anchor="middle" font-size="10" fill="#333">0,27</text>
+        <text x="336.5" y="205" text-anchor="middle" font-size="10" fill="#888">Nov</text>
+
+        <!-- Dec 2025: 0.21% => h=33.6, y=156.4 -->
+        <rect x="363" y="156.4" width="35" height="33.6" fill="#2ecc71" rx="2"/>
+        <text x="380.5" y="151" text-anchor="middle" font-size="10" fill="#333">0,21</text>
+        <text x="380.5" y="205" text-anchor="middle" font-size="10" fill="#888">Dez</text>
+
+        <!-- Jan 2026: 0.72% => h=115.2, y=74.8 -->
+        <rect x="407" y="74.8" width="35" height="115.2" fill="#e67e22" rx="2"/>
+        <text x="424.5" y="69" text-anchor="middle" font-size="10" fill="#333">0,72</text>
+        <text x="424.5" y="205" text-anchor="middle" font-size="10" fill="#888">Jan</text>
+
+        <!-- Feb 2026: 0.28% => h=44.8, y=145.2 -->
+        <rect x="451" y="145.2" width="35" height="44.8" fill="#1a5276" rx="2"/>
+        <text x="468.5" y="140" text-anchor="middle" font-size="10" fill="#333">0,28</text>
+        <text x="468.5" y="205" text-anchor="middle" font-size="10" fill="#888">Fev</text>
+
+        <!-- Mar 2026: 0.54% => h=86.4, y=103.6 -->
+        <rect x="495" y="103.6" width="35" height="86.4" fill="#1a5276" rx="2"/>
+        <text x="512.5" y="98" text-anchor="middle" font-size="10" fill="#333">0,54</text>
+        <text x="512.5" y="205" text-anchor="middle" font-size="10" fill="#888">Mar</text>
+
+        <!-- Apr 2026: 1.00% => h=160, y=30 -->
+        <rect x="539" y="30" width="35" height="160" fill="#e67e22" rx="2"/>
+        <text x="556.5" y="25" text-anchor="middle" font-size="10" fill="#333">1,00</text>
+        <text x="556.5" y="205" text-anchor="middle" font-size="10" fill="#888">Abr</text>
+    </svg>
+
+    <!-- COMPARATIVO -->
+    <h2 style="color: #1a2b3c; font-size: 22px; border-bottom: 2px solid #e8e8e8; padding-bottom: 8px; margin-bottom: 15px;">Comparativo: IPCA vs. INCC</h2>
+
+    <table style="width: 100%; border-collapse: collapse; font-size: 15px; margin-bottom: 15px;">
+        <thead>
+            <tr style="background-color: #1a5276; color: #ffffff;">
+                <th style="padding: 10px 12px; text-align: left; border-radius: 4px 0 0 0;">Indicador</th>
+                <th style="padding: 10px 12px; text-align: center;">Variação Mensal</th>
+                <th style="padding: 10px 12px; text-align: center;">Mês Anterior</th>
+                <th style="padding: 10px 12px; text-align: center; border-radius: 0 4px 0 0;">Acumulado 12 meses</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="background-color: #f8f9fa;">
+                <td style="padding: 10px 12px; border-bottom: 1px solid #e8e8e8;"><strong>IPCA</strong> <span style="color: #888; font-size: 13px;">(veículos)</span></td>
+                <td style="padding: 10px 12px; text-align: center; border-bottom: 1px solid #e8e8e8;">0,67%</td>
+                <td style="padding: 10px 12px; text-align: center; border-bottom: 1px solid #e8e8e8;">0,88%</td>
+                <td style="padding: 10px 12px; text-align: center; border-bottom: 1px solid #e8e8e8;"><strong>4,39%</strong></td>
+            </tr>
+            <tr>
+                <td style="padding: 10px 12px; border-bottom: 1px solid #e8e8e8;"><strong>INCC</strong> <span style="color: #888; font-size: 13px;">(imóveis)</span></td>
+                <td style="padding: 10px 12px; text-align: center; border-bottom: 1px solid #e8e8e8;">1,00%</td>
+                <td style="padding: 10px 12px; text-align: center; border-bottom: 1px solid #e8e8e8;">0,54%</td>
+                <td style="padding: 10px 12px; text-align: center; border-bottom: 1px solid #e8e8e8;"><strong>6,35%</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="background-color: #f8f9fa; border-left: 4px solid #e67e22; padding: 12px 15px; border-radius: 4px; margin-bottom: 30px;">
+        <p style="font-size: 15px; margin: 0; color: #555; line-height: 1.5;">
+            <strong>Quem sente mais pressão?</strong> Neste momento, os consórcios de <strong>imóveis</strong> enfrentam uma pressão inflacionária consideravelmente maior. O INCC acumulado em 12 meses (6,35%) está quase 2 pontos percentuais acima do IPCA (4,39%). Isso se traduz em reajustes de parcela proporcionalmente maiores para quem tem consórcio de casa, apartamento ou terreno.
+        </p>
+    </div>
+
+    <!-- OLHANDO PARA FRENTE -->
+    <h2 style="color: #1a2b3c; font-size: 22px; border-bottom: 2px solid #e8e8e8; padding-bottom: 8px; margin-bottom: 15px;">Olhando para Frente</h2>
+
+    <p style="font-size: 15px; color: #333; line-height: 1.7;">
+        No caso do IPCA, a variação mensal desacelerou em abril após dois meses de alta mais intensa (fevereiro e março). Caso essa tendência de desaceleração mensal se mantenha, o acumulado em 12 meses pode começar a ceder nos próximos meses, o que seria uma boa notícia para quem tem consórcio de veículos. Ainda assim, o acumulado de 4,39% segue acima do centro da meta de inflação do Banco Central.
+    </p>
+
+    <p style="font-size: 15px; color: #333; line-height: 1.7;">
+        Já o INCC apresenta um quadro diferente: a forte aceleração de abril (1,00%) indica que os custos da construção civil voltaram a subir com vigor. Se o ritmo atual continuar, o acumulado em 12 meses pode se aproximar de 7%, pressionando ainda mais os reajustes de parcelas de consórcio imobiliário. É importante acompanhar os próximos meses para verificar se essa alta reflete fatores sazonais ou uma tendência mais persistente.
+    </p>
+
+    <!-- GLOSSÁRIO -->
+    <h2 style="color: #1a2b3c; font-size: 22px; border-bottom: 2px solid #e8e8e8; padding-bottom: 8px; margin-bottom: 15px;">Glossário Rápido</h2>
+
+    <dl style="font-size: 15px; line-height: 1.7; color: #333;">
+        <dt style="font-weight: 700; color: #1a2b3c; margin-top: 10px;">IPCA (Índice Nacional de Preços ao Consumidor Amplo)</dt>
+        <dd style="margin-left: 0; margin-bottom: 10px; color: #555;">Principal índice de inflação do Brasil, que mede a variação de preços de produtos e serviços consumidos pelas famílias. É usado para reajustar parcelas de consórcio de <em>bens móveis</em> (veículos, motos, caminhões).</dd>
+
+        <dt style="font-weight: 700; color: #1a2b3c; margin-top: 10px;">INCC (Índice Nacional de Custo da Construção)</dt>
+        <dd style="margin-left: 0; margin-bottom: 10px; color: #555;">Mede a variação dos custos da construção civil no Brasil, incluindo materiais, mão de obra e serviços. É usado para reajustar parcelas de consórcio de <em>bens imóveis</em> (casas, apartamentos, terrenos).</dd>
+
+        <dt style="font-weight: 700; color: #1a2b3c; margin-top: 10px;">Variação mensal</dt>
+        <dd style="margin-left: 0; margin-bottom: 10px; color: #555;">Quanto o índice subiu (ou caiu) em um único mês, expresso em porcentagem. Por exemplo, 0,67% significa que os preços subiram 0,67% naquele mês.</dd>
+
+        <dt style="font-weight: 700; color: #1a2b3c; margin-top: 10px;">Variação acumulada em 12 meses</dt>
+        <dd style="margin-left: 0; margin-bottom: 10px; color: #555;">A inflação total dos últimos 12 meses. É o indicador mais relevante para estimar o reajuste anual das parcelas do consórcio.</dd>
+
+        <dt style="font-weight: 700; color: #1a2b3c; margin-top: 10px;">Reajuste de parcela</dt>
+        <dd style="margin-left: 0; margin-bottom: 10px; color: #555;">Atualização periódica do valor da parcela do consórcio com base na variação do índice de referência (IPCA para bens móveis, INCC para bens imóveis). Tem o objetivo de manter o poder de compra do fundo comum.</dd>
+    </dl>
+
+    <!-- FOOTER -->
+    <div style="border-top: 2px solid #e8e8e8; margin-top: 30px; padding-top: 15px; text-align: center;">
+        <p style="font-size: 13px; color: #999; margin: 0;">
+            Este relatório foi preparado exclusivamente para participantes de consórcio Servopa como parte de um projeto de pesquisa. As informações aqui contidas são de caráter informativo e não constituem recomendação financeira. Dados: IBGE (IPCA) e FGV (INCC).
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>
