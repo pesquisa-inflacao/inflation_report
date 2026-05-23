@@ -2,116 +2,160 @@
 
 ## Overview
 
-You are writing a monthly inflation report for participants in a consórcio (a Brazilian group-purchasing system) administered by **Servopa**. This report is part of a research experiment (RCT) — some survey respondents opted in to receive it. The report must be informative, visually appealing, and accessible to a non-specialist audience.
+Monthly inflation report for participants in a consórcio (Brazilian group-purchasing system) administered by **Servopa**. Part of an RCT — some survey respondents opted in to receive it. Must be informative, visually appealing, and accessible to a non-specialist audience of all backgrounds.
 
 ## Output
 
 - **Format:** A single self-contained HTML file with all CSS inline (no external stylesheets or scripts).
 - **Language:** Brazilian Portuguese.
-- **Naming convention:** `reports/YYYY-MM.html` (e.g., `reports/2026-07.html`).
+- **Naming convention:** `reports/YYYY-MM.html` — the file is named for the **publication month** (e.g., `reports/2026-05.html` for the May 2026 edition), even though the most recent data may be from the prior month.
 - **Self-contained:** No external dependencies (fonts, images, scripts). Everything inline.
+- **After writing:** Copy the file to `site/reports/YYYY-MM.html` for GitHub Pages serving.
 
 ## Data Source
 
 The input data lives at `data/incc_report_input.xlsx`. It contains two sheets:
 
-### Sheet: `incc`
-INCC (Índice Nacional de Custo da Construção) — the construction cost index, used to adjust consórcio installments for **real estate** (bens imóveis).
-
 ### Sheet: `ipca`
 IPCA (Índice Nacional de Preços ao Consumidor Amplo) — Brazil's official consumer price index, used to adjust consórcio installments for **vehicles and other movable goods** (bens móveis).
 
-### Column structure (both sheets are identical):
+### Sheet: `incc`
+INCC (Índice Nacional de Custo da Construção) — the construction cost index, used to adjust consórcio installments for **real estate** (bens imóveis).
+
+### Column structure (both sheets identical):
 | Column      | Description                                      |
 |-------------|--------------------------------------------------|
-| `month`     | Reference month (datetime, first day of month)   |
+| `month`     | Reference month (Excel serial date, first day)   |
 | `index`     | Cumulative index value                           |
-| `month.1`   | Monthly variation (%, e.g., 0.54 means 0.54%)    |
+| `month_1`   | Monthly variation (%, e.g., 0.54 means 0.54%)   |
 | `ytd`       | Year-to-date accumulated variation (%)           |
 | `past_year` | Trailing 12-month accumulated variation (%)      |
 
-The data runs from January 2008 through the most recent available month. When writing a report for month YYYY-MM, use data up to and including that month.
+The data runs from January 2008 through the most recent available month.
 
-## Report Structure
+## Report Structure (Current Design — May 2026)
 
-Each monthly report should follow this structure. Keep it concise — the target reading time is **5 to 10 minutes**.
+The report uses colored full-width section banners as dividers between content blocks. The body background is dark (`#1a2b3c`), making the white content areas feel like separate "pages."
 
-### 1. Header
-- Title: **"Relatório Mensal de Inflação — [Month in Portuguese] [Year]"**
-  - Example: "Relatório Mensal de Inflação — Julho 2026"
-- Subtitle: "Preparado para participantes de consórcio Servopa"
-- Date of publication
+### 1. Header Block (white)
+- Title: **"Relatório Mensal de Inflação"** (30px, bold)
+- Month: **"[Month in Portuguese] [Year]"** (22px, blue)
+- Attribution: "Elaborado por pesquisadores e direcionado aos clientes do consórcio Servopa"
+- Data note: "Dados mais recentes disponíveis: [month of latest data] de [year]"
+- **Intro list** — concise bullet points:
+  - Inflação nos últimos 12 meses — o quanto os índices de preços subiram no último ano
+  - Inflação nos últimos 6 meses — o quanto os índices de preços subiram no último semestre
+  - Simulador de Reajuste — quanto sua parcela pode aumentar com a inflação atual
+- **Navigation cards** — two clickable cards side by side:
+  - ���� Bens Móveis (veículos, motos, caminhões) — blue border
+  - 🏠 Bens Imóveis (casas, apartamentos, terrenos) — orange border
 
-### 2. Resumo Executivo (Executive Summary)
-- 2-3 sentences summarizing the key takeaway for the month.
-- Example tone: "A inflação medida pelo IPCA acelerou em julho, atingindo X,XX% no mês. Para quem tem consórcio de veículos, isso significa que o reajuste anual das parcelas tende a ser maior. Já o INCC desacelerou, trazendo alívio para quem tem consórcio de imóveis."
+### 2. Section Banner: Bens Móveis (blue `#1a5276` background)
+- Title + subtitle in white
 
-### 3. IPCA — O que aconteceu?
-- Report the **monthly variation** and **trailing 12-month variation**.
-- Compare to the previous month's values (is it accelerating or decelerating?).
-- Show a simple trend: provide a visual (inline SVG chart or HTML/CSS bar chart) of the **last 12 monthly variations** of IPCA.
-- **Plain-language explanation** of what this means for consórcio installments of **bens móveis** (vehicles, motorcycles, trucks).
-- Include a concrete example: "Se sua parcela atual é de R$ 1.000, um reajuste anual de X,XX% representaria um aumento de R$ XX,XX por mês."
+### 3. IPCA Content Block (white)
+- **Stat boxes** (side by side):
+  - Large box (flex: 2): 12-month accumulated (`past_year`) — 42px bold number
+  - Smaller box (flex: 1): 6-month accumulated (computed) — 28px bold number
+- **Context line**: "↑ Este índice subiu em relação ao mês anterior (era X,XX%) — acelerando/desacelerando"
+  - Use red (`#c0392b`) for "acelerando", green (`#2ecc71`) for "desacelerando"
+- **Line chart** (inline SVG, viewBox 600×200):
+  - Last 30 months of `past_year` values
+  - Title: "Inflação acumulada em 12 meses" (no time range in title)
+  - Y-axis range: choose appropriate min/max to show the data well
+  - X-axis labels: every ~6 months
+  - Line color: `#1a5276`
+  - End-point dot and label with current value
 
-### 4. INCC — O que aconteceu?
-- Same structure as the IPCA section, but for INCC.
-- Explain relevance to **bens imóveis** (houses, apartments, land, renovations).
-- Include the same type of concrete installment example.
+### 4. Section Banner: Bens Imóveis (orange `#e67e22` background)
+- Title + subtitle in white
 
-### 5. Comparativo: IPCA vs. INCC
-- A side-by-side comparison (table or visual) of the two indices for the current month and trailing 12 months.
-- Brief note on which type of consórcio is facing more pressure from inflation right now.
+### 5. INCC Content Block (white)
+- Same structure as IPCA, but:
+  - Border accents use orange (`#e67e22`)
+  - Chart line color: `#e67e22`
 
-### 6. Olhando para Frente (Looking Ahead)
-- A brief, cautious forward-looking paragraph. Do NOT make predictions — instead, describe the recent trend direction and what it *could* mean if it continues.
-- Use hedging language: "Caso a tendência de aceleração se mantenha...", "Se o ritmo atual continuar..."
-- You may reference publicly known information (e.g., Banco Central targets, Selic trajectory) but keep it general. Do not cite specific forecasts.
+### 6. Section Banner: Simulador de Reajuste (dark slate `#2c3e50` background)
+- Title + subtitle in white
 
-### 7. Glossário Rápido (Quick Glossary)
-- Short definitions (1-2 sentences each) for: IPCA, INCC, variação mensal, variação acumulada em 12 meses, reajuste de parcela.
-- This should appear at the bottom of every report so new readers always have it.
+### 7. Simulator Content Block (white)
+- **Two tables** (one for Bens Móveis/IPCA, one for Bens Imóveis/INCC)
+- Columns: Parcela atual | Reajuste semestral (6M %) | Reajuste anual (12M %)
+- Rows: R$ 1.000, R$ 2.000, R$ 3.000, R$ 4.000, R$ 5.000
+- Values: `round(parcela * rate)`
+- Disclaimer: "Valores aproximados para fins ilustrativos..."
+- **Carta de crédito reminder** (grey box): "Lembre-se: a sua carta de crédito também é corrigida por esses mesmos índices enquanto você não for contemplado. Ou seja, o valor que você terá direito a receber acompanha a inflação."
 
-## Visual Design Guidelines
+### 8. Footer (light grey background)
+- "Relatório informativo. Não constitui recomendação financeira. Dados: IBGE (IPCA) e FGV (INCC)."
 
-- **Color palette:** Use a professional, clean palette. Suggested:
-  - Primary blue: `#1a5276` (headers, chart accents)
-  - Secondary teal: `#2ecc71` (positive/deceleration highlights)
-  - Alert orange: `#e67e22` (acceleration highlights)
-  - Text: `#333333` (body), `#1a2b3c` (headers)
-  - Background: `#ffffff` (main), `#f8f9fa` (callout boxes)
-- **Typography:** Use system fonts: `'Helvetica Neue', Helvetica, Arial, sans-serif`.
-- **Charts:** Use inline SVG for any charts. Keep them simple — bar charts for monthly variations, no 3D effects, no excessive decoration. Label axes clearly. Charts should be responsive (use viewBox).
-- **Callout boxes:** Use the same visual language as the survey (left-border accent, light background, rounded corners). Example:
-  ```html
-  <div style="background-color: #f8f9fa; border-left: 4px solid #2ecc71; padding: 12px 15px; border-radius: 4px;">
-      <p style="font-size: 16px; margin: 0; color: #555; line-height: 1.5;">
-          Content here
-      </p>
-  </div>
-  ```
-- **Installment examples:** Highlight these in a distinct callout box so they stand out. Use a calculator emoji (🧮) as a visual anchor.
-- **Mobile-friendly:** The report will be viewed on phones. Use responsive widths (`max-width: 700px; margin: 0 auto;`), adequate font sizes (minimum 15px body text), and ensure charts scale down gracefully.
+## Computing the 6-Month Accumulated Inflation
+
+The 6-month figure is NOT in the spreadsheet — it must be computed:
+
+```
+6M = (1 + m1/100) × (1 + m2/100) × ... × (1 + m6/100) - 1
+```
+
+Where m1...m6 are the `month_1` values for the last 6 months (including the current one).
+
+## Chart Coordinate Calculation
+
+For line charts:
+- **X**: `x = 50 + i * (530 / (N-1))` where i is the point index (0-based) and N is total points (30)
+- **Y**: `y = y_bottom - ((value - y_min) * (y_bottom - y_top) / (y_max - y_min))`
+  - Use `y_top = 20`, `y_bottom = 164` (gives 144px of vertical space)
+  - Choose `y_min` and `y_max` to frame the data well (round to nice numbers)
+
+## Visual Design
+
+- **Color palette:**
+  - Primary blue: `#1a5276` (IPCA/Bens Móveis)
+  - Orange: `#e67e22` (INCC/Bens Imóveis)
+  - Red: `#c0392b` (acceleration indicator)
+  - Green: `#2ecc71` (deceleration indicator)
+  - Dark background: `#1a2b3c` (body, between sections)
+  - Dark slate: `#2c3e50` (simulator banner)
+  - Text: `#333333` (body), `#1a2b3c` (headers), `#888` (secondary), `#aaa` (tertiary)
+  - Backgrounds: `#ffffff` (content), `#f8f9fa` (stat boxes, callouts)
+- **Typography:** `'Helvetica Neue', Helvetica, Arial, sans-serif`
+- **Mobile-friendly:** `max-width: 700px; margin: 0 auto;` on each content block
 
 ## Tone and Language
 
-- **Accessible:** Write for someone who is not an economist. Avoid jargon without explanation.
-- **Neutral and factual:** Do not editorialize or make value judgments about government policy, the Banco Central, etc.
-- **Practical:** Always connect the data back to what it means for the reader's consórcio installments. This is the core value proposition.
-- **Concise:** Respect the reader's time. Every paragraph should earn its place.
+- **Accessible:** Write for someone who is not an economist. Avoid jargon.
+- **Neutral and factual:** No editorializing.
+- **Practical:** Connect data back to what it means for installments.
+- **Concise:** Minimal text. Let the numbers and visuals do the work.
+- **Friendly:** Use "você" and conversational Portuguese.
 
-## How to Generate a Report
+## How to Generate a New Monthly Report
 
-When asked to write a report for a specific month (e.g., "write the July 2026 report"):
+When it's time to write the next month's report (e.g., "write the June 2026 report"):
 
-1. Read the data from `data/incc_report_input.xlsx`.
-2. Filter to the relevant month and extract the needed values (current month, previous month, last 12 months for charts).
-3. Compute any derived values (e.g., change in monthly variation vs. prior month, installment impact examples).
-4. Generate the HTML file following the structure and design guidelines above.
-5. Save to `reports/YYYY-MM.html`.
+1. **Check data:** Read `data/incc_report_input.xlsx`. Verify the latest month is present. If not, flag it — do not invent numbers.
+2. **Extract values:**
+   - Current month `past_year` (12M) for both IPCA and INCC
+   - Previous month `past_year` for both (for the context line)
+   - Last 6 `month_1` values for both (to compute 6M accumulated)
+   - Last 30 `past_year` values for both (for charts)
+3. **Compute:**
+   - 6M accumulated for IPCA and INCC
+   - Table values: `round(parcela * rate)` for each combination
+   - Chart coordinates using the formulas above
+4. **Determine acceleration/deceleration:** Compare current `past_year` to previous month's `past_year`.
+5. **Generate HTML** using `reports/2026-05.html` as the template. Update:
+   - Month name in title and header
+   - Data note (which month the data goes up to)
+   - All numbers (stat boxes, context lines, chart points, tables)
+   - Chart Y-axis range if needed (pick nice min/max for the data)
+6. **Save** to `reports/YYYY-MM.html`
+7. **Copy** to `site/reports/YYYY-MM.html`
+8. **Remind user** to commit and push via GitHub Desktop
 
 ## Important Notes
 
-- **Do not fabricate data.** Only use values that exist in the spreadsheet. If the requested month is not in the data, say so.
-- **Do not make forecasts.** The "Looking Ahead" section describes trends, not predictions.
-- **Update the data file first.** Before writing a new report, check if the xlsx has been updated with the latest month's data. If it hasn't, flag this rather than inventing numbers.
-- **Each report is standalone.** A reader should be able to understand any single report without having read previous ones.
+- **Do not fabricate data.** Only use values from the spreadsheet.
+- **Publication month vs. data month:** The report is named for the publication month. The data may lag by one month. Always note this in the header.
+- **Each report is standalone.** A reader should understand any single report without prior context.
+- **Use `reports/2026-05.html` as the canonical template** for all future reports.
