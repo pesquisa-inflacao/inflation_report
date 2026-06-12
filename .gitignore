@@ -1,6 +1,8 @@
 # PII and secrets — never commit
 tokens/token_map.csv
 tokens/qualtrics_export.csv
+tokens/send_log.csv
+tokens/preview_*.csv
 tracking/tracking_events.csv
 analysis/analysis_panel.csv
 .env
